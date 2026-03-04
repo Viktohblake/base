@@ -230,10 +230,7 @@ impl Rebroadcaster {
                 if txn.max_priority_fee_per_gas().is_none() {
                     return true;
                 }
-                let max_priority_fee = txn.max_priority_fee_per_gas().unwrap();
-                let effective_gas_price =
-                    base_fee.saturating_add(max_priority_fee).min(txn.max_fee_per_gas());
-                effective_gas_price < gas_price
+                txn.max_fee_per_gas() < base_fee
             }
             _ => {
                 warn!(
